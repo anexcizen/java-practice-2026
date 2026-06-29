@@ -3,10 +3,7 @@ package ru.itis.shop.user.infrastructure.persistence;
 import ru.itis.shop.user.domain.User;
 import ru.itis.shop.user.repository.UserRepository;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.UUID;
+import java.io.*;
 
 public class UserFileRepository implements UserRepository {
 
@@ -19,8 +16,6 @@ public class UserFileRepository implements UserRepository {
     @Override
     public void save(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            String id = UUID.randomUUID().toString();
-            user.setId(id);
             writer.write(user.getId() + "|" +
                     user.getEmail() + "|" +
                     user.getPassword() + "|" +
@@ -33,6 +28,24 @@ public class UserFileRepository implements UserRepository {
 
     @Override
     public User findById(String id) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] userParts = line.split("\\|");
+                if (userParts[0].equals(id)) {
+                    return new User(
+                            userParts[0],
+                            userParts[1],
+                            userParts[2],
+                            userParts[3]);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+
         return null;
     }
 }
