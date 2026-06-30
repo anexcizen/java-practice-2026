@@ -1,9 +1,7 @@
 package ru.itis.shop.user.api;
 
 import ru.itis.shop.user.application.UserService;
-import ru.itis.shop.user.domain.User;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 public class UserConsoleOperations {
@@ -31,8 +29,13 @@ public class UserConsoleOperations {
             }
             break;
             case "3": {
-                findById();
+                getEmailFromId();
             }
+            break;
+            case "4": {
+                updateData();
+            }
+            break;
             case "0": {
                 System.exit(0);
             }
@@ -43,6 +46,7 @@ public class UserConsoleOperations {
         System.out.println("1. Регистрация пользователя");
         System.out.println("2. Вход в систему");
         System.out.println("3. Найти пользователя по id");
+        System.out.println("4. Обновить данные пользователя");
         System.out.println("0. Выход");
     }
 
@@ -73,15 +77,36 @@ public class UserConsoleOperations {
         }
     }
 
-    private void findById() {
+    private void getEmailFromId() {
         System.out.println("Ищем пользователя по id");
         System.out.println("Введите id: ");
         String id = scanner.nextLine();
-        String foundEmail = userService.findById(id);
+        String foundEmail = userService.getEmailFromId(id);
         if (foundEmail != null) {
             System.out.println(foundEmail);
         } else {
             System.out.println("Пользователя с таким id не существует");
+        }
+    }
+
+    private void updateData() {
+        System.out.println("Введите email пользователя, данные которого хотите обновить: ");
+        String email = scanner.nextLine();
+        if (userService.emailIsExist(email)) {
+            updateDescription(email);
+        } else {
+            System.out.println("Пользователь с таким email не зарегистрирован");
+        }
+    }
+
+    private void updateDescription(String email) {
+        System.out.println("Вы хотите обновить описание пользователя " + email + "?");
+        if (scanner.nextLine().toLowerCase().equals("да")) {
+            System.out.println("Введите новое описание пользователя");
+            String newDescription = scanner.nextLine();
+            userService.updateDescription(email, newDescription);
+        } else {
+            System.out.println("Данные пользователя не обновлены");
         }
     }
 

@@ -26,12 +26,30 @@ public class UserService {
         } else return false;
     }
 
-    public String findById(String id) {
+    public String getEmailFromId(String id) {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isPresent()) {
             return userOptional.get().getEmail();
         }
         return null;
+    }
+
+    public boolean emailIsExist(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updateDescription(String email, String newDescription) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            userOptional.get().setProfileDescription(newDescription);
+            userRepository.updateUser(userOptional.get());
+        }
     }
 }

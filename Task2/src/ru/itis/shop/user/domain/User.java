@@ -1,5 +1,7 @@
 package ru.itis.shop.user.domain;
 
+import java.util.UUID;
+
 public class User {
 
     private String id;
@@ -17,6 +19,7 @@ public class User {
     }
 
     public User(String email, String password, String profileDescription) {
+        this.id = UUID.randomUUID().toString();
         this.email = email;
         this.password = password;
         this.profileDescription = profileDescription;
