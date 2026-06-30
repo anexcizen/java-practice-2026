@@ -25,4 +25,13 @@ public class UserService {
             return userOptional.get().getPassword().equals(password);
         } else return false;
     }
+
+    public String findById(String id) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            return userOptional.get().getEmail();
+        }
+        return null;
+    }
 }
