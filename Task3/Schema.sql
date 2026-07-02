@@ -1,1 +1,0 @@
-insert into product (name, price) values ('Мармеладки', 100);
