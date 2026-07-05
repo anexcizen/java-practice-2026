@@ -37,7 +37,7 @@ public class UserConsoleOperations {
             }
             break;
             case "5": {
-                getAllEmails();
+                getAllUsers();
             }
             break;
             case "0": {
@@ -52,12 +52,14 @@ public class UserConsoleOperations {
         System.out.println("2. Вход в систему");
         System.out.println("3. Найти пользователя по id");
         System.out.println("4. Обновить данные пользователя");
-        System.out.println("5. Вывести email всех зарегистрированных пользователей");
+        System.out.println("5. Показать всех пользователей");
         System.out.println("0. Выход");
     }
 
     private void signUp() {
         System.out.println("Сейчас будем регистрировать пользователя");
+        System.out.println("Введите имя:");
+        String name = scanner.nextLine();
         System.out.println("Введите email:");
         String email = scanner.nextLine();
         System.out.println("Введите password:");
@@ -65,7 +67,7 @@ public class UserConsoleOperations {
         System.out.println("Введите описание профиля:");
         String profileDescription = scanner.nextLine();
 
-        userService.signUp(email, password, profileDescription);
+        userService.signUp(name, email, password, profileDescription);
     }
 
 
@@ -116,8 +118,8 @@ public class UserConsoleOperations {
         }
     }
 
-    private void getAllEmails() {
-        System.out.println("Выводим email зарегистрированных пользователей...");
-        userService.getAllEmails();
+    private void getAllUsers() {
+        System.out.println("Выводим имя и email зарегистрированных пользователей...");
+        userService.getAllUsers();
     }
 }

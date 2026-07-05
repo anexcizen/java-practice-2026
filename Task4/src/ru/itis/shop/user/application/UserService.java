@@ -14,8 +14,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void signUp(String email, String password, String profileDescription) {
-        User user = new User(email, password, profileDescription);
+    public void signUp(String name, String email, String password, String profileDescription) {
+        User user = new User(name, email, password, profileDescription);
         userRepository.save(user);
     }
 
@@ -54,8 +54,8 @@ public class UserService {
         }
     }
 
-    public void getAllEmails() {
+    public void getAllUsers() {
         List<User> allUsers = userRepository.findAll();
-        allUsers.stream().forEach(a -> System.out.println(a.getEmail()));
+        allUsers.stream().forEach(a -> System.out.println(a.getName() + a.getEmail()));
     }
 }
