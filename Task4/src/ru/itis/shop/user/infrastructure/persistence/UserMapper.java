@@ -2,6 +2,9 @@ package ru.itis.shop.user.infrastructure.persistence;
 
 import ru.itis.shop.user.domain.User;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserMapper {
 
     public User fromLine(String line) {
@@ -16,5 +19,17 @@ public class UserMapper {
                 user.getEmail() + "|" +
                 user.getPassword() + "|" +
                 user.getProfileDescription();
+    }
+
+    public User fromDataBaseRepository(ResultSet resultSet) {
+        try {
+            return new User(resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"),
+                    resultSet.getString("profile_description"));
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }
