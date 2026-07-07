@@ -22,19 +22,22 @@ public class UserConsoleOperations {
 
         switch (command) {
             case "1": {
-                signUp();
+                throw new RuntimeException("Не реализован метод signUp в UserRepositoryJdbcImpl");
             }
-            break;
             case "2": {
-                signIn();
+                throw new RuntimeException("Не реализован метод signIn в UserRepositoryJdbcImpl");
             }
-            break;
             case "3": {
                 throw new RuntimeException("Не реализован метод findById");
             }
             case "4": {
+                showAll();
+            }
+            break;
+            case "5": {
                 showInfoByDescription();
             }
+            break;
             case "0": {
                 System.exit(0);
             }
@@ -47,7 +50,8 @@ public class UserConsoleOperations {
         System.out.println("1. Регистрация пользователя");
         System.out.println("2. Вход в систему");
         System.out.println("3. Найти пользователя по id");
-        System.out.println("4. Показать информацию о пользователях с заданным profileDescription");
+        System.out.println("4. Показать информацию о всех пользователях");
+        System.out.println("5. Показать информацию о пользователях с заданным profileDescription");
         System.out.println("0. Выход");
     }
 
@@ -78,6 +82,11 @@ public class UserConsoleOperations {
         } else {
             System.out.println("Email или пароль не верны");
         }
+    }
+
+    private void showAll() {
+        System.out.println("Выводим зарегистрированных пользователей..");
+        userService.findAll();
     }
 
     private void showInfoByDescription() {

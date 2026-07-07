@@ -29,6 +29,15 @@ public class UserService {
 
     public void findByDescription(String profileDescription) {
         List<User> users = userRepository.findAllByProfileDescription(profileDescription);
-        users.forEach(System.out::println);
+        if (!users.isEmpty()) {
+            users.forEach(System.out::println);
+        } else {
+            System.out.println("Пользователей с таким profileDescription не найдено");
+        }
+    }
+
+    public void findAll() {
+        List<User> allUsers = userRepository.findAll();
+        allUsers.forEach(a -> System.out.println(a.getName() + " " + a.getEmail()));
     }
 }

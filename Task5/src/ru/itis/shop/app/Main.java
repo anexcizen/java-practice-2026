@@ -10,18 +10,17 @@ import javax.sql.DataSource;
 
 public class Main {
     public static void main(String[] args) {
-        DataSource dataSource  = new DriverManagerDataSource("jdbc:postgresql://localhost:5432/shop_db",
-                "postgres", "qwerty333");
+        DataSource dataSource = new DriverManagerDataSource("jdbc:postgresql://localhost:5432/shop_db",
+                "postgres", "qwerty007");
 
         UserRepository userRepository = new UserRepositoryJdbcImpl(dataSource);
 
-        System.out.println(userRepository.findAll());
-//        UserService userService = new UserService(userRepository);
+        UserService userService = new UserService(userRepository);
 
-//        UserConsoleOperations operations = new UserConsoleOperations(userService);
-//
-//        while (true) {
-//            operations.showMenu();
-//        }
+        UserConsoleOperations operations = new UserConsoleOperations(userService);
+
+        while (true) {
+            operations.showMenu();
+        }
     }
 }

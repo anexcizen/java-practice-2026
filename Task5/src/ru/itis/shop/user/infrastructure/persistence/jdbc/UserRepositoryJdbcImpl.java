@@ -64,7 +64,20 @@ public class UserRepositoryJdbcImpl implements UserRepository {
 
     @Override
     public List<User> findAllByProfileDescription(String profileDescription) {
-        return List.of();
+        List<User> users = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()) {
+            try (Statement statement = connection.createStatement()) {
+                String state = "select * from account where profiledescription = " + "'" + profileDescription + "'";
+                try (ResultSet resultSet = statement.executeQuery(state)) {
+                    while (resultSet.next()) {
+                        users.add(userRowMapper.mapRow(resultSet));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        return users;
     }
 
 }
