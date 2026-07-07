@@ -61,4 +61,10 @@ public class UserRepositoryJdbcImpl implements UserRepository {
         }
         return users;
     }
+
+    @Override
+    public List<User> findAllByProfileDescription(String profileDescription) {
+        return List.of();
+    }
+
 }

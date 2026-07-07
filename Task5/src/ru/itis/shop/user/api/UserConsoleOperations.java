@@ -1,6 +1,7 @@
 package ru.itis.shop.user.api;
 
 import ru.itis.shop.user.application.UserService;
+import ru.itis.shop.user.domain.User;
 
 import java.util.Scanner;
 
@@ -28,16 +29,25 @@ public class UserConsoleOperations {
                 signIn();
             }
             break;
+            case "3": {
+                throw new RuntimeException("Не реализован метод findById");
+            }
+            case "4": {
+                showInfoByDescription();
+            }
             case "0": {
                 System.exit(0);
             }
         }
     }
 
+
+
     private static void printUserMenu() {
         System.out.println("1. Регистрация пользователя");
         System.out.println("2. Вход в систему");
         System.out.println("3. Найти пользователя по id");
+        System.out.println("4. Показать информацию о пользователях с заданным profileDescription");
         System.out.println("0. Выход");
     }
 
@@ -70,6 +80,10 @@ public class UserConsoleOperations {
         }
     }
 
-
+    private void showInfoByDescription() {
+        System.out.println("Введите profileDescription: ");
+        String profileDescription = scanner.nextLine();
+        userService.findByDescription(profileDescription);
+    }
 
 }
